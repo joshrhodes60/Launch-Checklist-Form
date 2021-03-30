@@ -1,5 +1,28 @@
 // Write your JavaScript code here!
 window.addEventListener("load", function () {
+   
+   const json = fetch("https://handlers.education.launchcode.org/static/planets.json")
+   .then((response) => response.json()
+   .then((json) => {
+   const div = document.getElementById("missionTarget");
+      div.innerHTML = `
+      <h2>Mission Destination</h2>
+      <ol>
+         <li>Name: ${json[0].name}</li>
+         <li>Diameter: ${json[0].diameter}</li>
+         <li>Star: ${json[0].star}</li>
+         <li>Distance from Earth: ${json[0].distance}</li>
+         <li>Number of Moons: ${json[0].moons}</li>
+      </ol>
+      <img src="${json[0].image}">
+      
+      `
+   }
+   ))
+   
+   
+     
+// })
    let form = document.querySelector("form");
    form.addEventListener("submit", function (event) {
       
@@ -13,8 +36,8 @@ window.addEventListener("load", function () {
     
     
 
-      const fuelAmount = isNaN(fuelLevel.value) ? "NaN" : Number(fuelLevel.value);
-      const cargoAmount = isNaN(cargoMass.value) ? "NaN" : Number(cargoMass.value);
+      const fuelAmount = fuelLevel.value;
+      const cargoAmount =cargoMass.value ;
 
       let pilotStatus = document.getElementById("pilotStatus");
       pilotStatus.innerHTML=`Pilot ${pilotName.value} is ready for launch.`;
@@ -31,35 +54,34 @@ window.addEventListener("load", function () {
          alert("All fields are required!");
          // stop the form submission
 
-     } else if (fuelAmount < 10000){
+         }else if (isNaN(fuelAmount ) ){
+            alert("Make sure to enter valid information for each field");
+         }else if(isNaN(cargoAmount )){
+            alert("Make sure to enter valid information for each field");
+         }else if(!isNaN(pilotName.value) || !isNaN(copilotName.value)){
+            alert("Make sure to enter valid information for each field") 
+      }
+
+      else if (fuelAmount < 10000){
       fuelStatus.innerHTML=`Fuel Level (L) ${fuelAmount} not enough fuel for the journey.`;
       launchStatus.innerHTML= `Shuttle not ready for launch `
       launchStatus.style.color="red";
 
-   } else if (fuelAmount >= 10000){
-      fuelStatus.innerHTML = `Fuel Level (L) ${fuelAmount} Fuel level high enough for launch.`
-      launchStatus.innerHTML =`Shuttle is ready for launch.`
-      launchStatus.style.color="black";
+   
 
    } else if(cargoAmount >= 10000){
       cargoStatus.innerHTML = `Cargo Mass (kg) ${cargoAmount} too much mass for the shuttle to take off.`
       launchStatus.innerHTML = `Shuttle not ready for launch.`
       launchStatus.style.color = "red";
 
-   } else if(cargoAmount < 10000){
+   } else{ 
       cargoStatus.innerHTML = `Cargo Mass (kg) ${cargoAmount} Cargo mass low enough for launch.`
       launchStatus.innerHTML= `Shuttle is ready for launch.`
+      fuelStatus.innerHTML=`Fuel Level (L) ${fuelAmount}  enough fuel for the journey.`;
       launchStatus.style.color="green";
-
-   } else if(fuelAmount === "NaN" ){
-      alert("Make sure to enter valid information for each field");
-   }else if(cargoAmount === "NaN" ){
-      alert("Make sure to enter valid information for each field");
    }
 
-   //  else if(pilotName.value === "isNaN" || copilotName === "isNaN"){
-   //    alert("Make sure to enter valid information for each field"); 
-   //  }
+   
    
 
    });
