@@ -30,7 +30,7 @@ window.addEventListener("load", function () {
       } else if (fuelLevel.value === "" || cargoMass.value === "") {
          alert("All fields are required!");
          // stop the form submission
-         
+
      } else if (fuelAmount < 10000){
       fuelStatus.innerHTML=`Fuel Level (L) ${fuelAmount} not enough fuel for the journey.`;
       launchStatus.innerHTML= `Shuttle not ready for launch `
@@ -49,11 +49,18 @@ window.addEventListener("load", function () {
    } else if(cargoAmount < 10000){
       cargoStatus.innerHTML = `Cargo Mass (kg) ${cargoAmount} Cargo mass low enough for launch.`
       launchStatus.innerHTML= `Shuttle is ready for launch.`
-      launchStatus.style.color="green"
+      launchStatus.style.color="green";
 
-   } else if(fuelAmount === "NaN" || cargoAmount === "NaN"){
+   } else if(fuelAmount === "NaN" ){
+      alert("Make sure to enter valid information for each field");
+   }else if(cargoAmount === "NaN" ){
       alert("Make sure to enter valid information for each field");
    }
+
+   //  else if(pilotName.value === "isNaN" || copilotName === "isNaN"){
+   //    alert("Make sure to enter valid information for each field"); 
+   //  }
+   
 
    });
 });   
